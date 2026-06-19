@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobTracker - Add Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="form-page">
+
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Track New Application</h2>
+            <p>Enter the details of the job or internship position below.</p>
+        </div>
+
+        <form class="app-form" action="dashboard.html">
+            
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="company-name">Company Name</label>
+                    <input type="text" id="company-name" placeholder="e.g. Google, Stripe" required>
+                </div>
+                <div class="input-group">
+                    <label for="job-role">Job Title / Role</label>
+                    <input type="text" id="job-role" placeholder="e.g. Frontend Engineer" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="job-status">Application Status</label>
+                    <select id="job-status" class="form-select">
+                        <option value="applied">Applied</option>
+                        <option value="interview">In Interview</option>
+                        <option value="offered">Offer Received</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="applied-date">Date Applied</label>
+                    <input type="date" id="applied-date" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="job-salary">Salary / Compensation <span class="optional-text">(Optional)</span></label>
+                <input type="text" id="job-salary" placeholder="e.g. ₹50,000/mo or $120,000/yr">
+            </div>
+
+            <div class="input-group">
+                <label for="job-notes">Notes & Interview Steps</label>
+                <textarea id="job-notes" rows="4" placeholder="Add custom reminders, submission details, or interviewer names..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a href="dashboard.html" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Application</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

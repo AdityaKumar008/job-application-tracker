@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobTracker - Authentication</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>JobTracker</h2>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="tab-btn active" id="tab-signup">Sign Up</button>
+            <button class="tab-btn" id="tab-login">Login</button>
+        </div>
+
+        <div class="auth-form-container">
+            
+            <form class="auth-form" id="signup-form" action="dashboard.html">
+                <div class="input-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" placeholder="name@company.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="••••••••" required>
+                </div>
+                <div class="input-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <p class="auth-switch-text">Already have an account? <span class="link-span">Log In</span></p>
+            </form>
+
+            <form class="auth-form hidden" id="login-form" action="dashboard.html">
+                <div class="input-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="name@company.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                <p class="auth-switch-text">Don't have an account? <span class="link-span">Sign Up</span></p>
+            </form>
+
+        </div>
+    </div>
+
+    <footer class="footer auth-footer">
+        <p>Copyright © 2026 JobTracker LLC. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
