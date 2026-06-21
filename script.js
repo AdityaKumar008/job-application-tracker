@@ -94,12 +94,7 @@ function initPasswordToggle() {
    ========================================================================== */
 
 // Apply saved theme immediately on every page load
-(function applySavedTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-})();
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
@@ -141,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCardActions();
     initMobileDrawer();
     initChangePasswordValidation();
+    initProfileFormSubmission();
 }
 
 });
@@ -343,6 +339,19 @@ function initMobileDrawer() {
     });
 }
 
+
+
+/* ---------------- 02.7 PROFILE FORM SUBMISSION (Settings) ---------------- */
+
+function initProfileFormSubmission() {
+    const form = document.getElementById('profile-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Save logic will go here once backend exists
+    });
+}
 
 
 
