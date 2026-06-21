@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,21 +12,25 @@
         }
     </script>
 
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230d655e'/%3E%3Cpath d='M30 52 L43 65 L72 35' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body class="dashboard-page">
 
     <!-- ===================== MOBILE TOP BAR (visible only on small screens) ===================== -->
-<div class="mobile-topbar">
-    <button class="mobile-menu-btn" id="mobile-menu-btn">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-    <h2 class="mobile-logo">JobTracker</h2>
-</div>
+    <div class="mobile-topbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <h2 class="mobile-logo">JobTracker</h2>
+    </div>
 
-<!-- ===================== MOBILE BACKDROP (visible only when drawer is open) ===================== -->
-<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <!-- ===================== MOBILE BACKDROP (visible only when drawer is open) ===================== -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
 
     <!-- ===================== SIDEBAR ===================== -->
     <aside class="sidebar" id="sidebar">
@@ -95,17 +100,19 @@
                 <p>Enter the details of the job or internship position below.</p>
             </div>
 
-            <form class="app-form" id="application-form">
+            <form class="app-form" id="application-form" novalidate>
 
                 <!-- Row: Company Name + Role -->
                 <div class="form-row">
                     <div class="input-group floating">
                         <input type="text" id="company-name" placeholder=" " required>
                         <label for="company-name">Company Name</label>
+                        <span class="error-message" id="company-name-error"></span>
                     </div>
                     <div class="input-group floating">
                         <input type="text" id="job-role" placeholder=" " required>
                         <label for="job-role">Job Title / Role</label>
+                        <span class="error-message" id="job-role-error"></span>
                     </div>
                 </div>
 
@@ -120,10 +127,12 @@
                             <option value="rejected">Rejected</option>
                         </select>
                         <label for="job-status">Application Status</label>
+                        <span class="error-message" id="job-status-error"></span>
                     </div>
                     <div class="input-group floating">
                         <input type="date" id="applied-date" placeholder=" " required>
                         <label for="applied-date">Date Applied</label>
+                        <span class="error-message" id="applied-date-error"></span>
                     </div>
                 </div>
 
@@ -154,4 +163,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

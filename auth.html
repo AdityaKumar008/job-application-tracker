@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobTracker - Login / Signup</title>
+
     <script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-</script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230d655e'/%3E%3Cpath d='M30 52 L43 65 L72 35' stroke='white' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="auth-page">
 
     <!-- ===================== AUTH CARD ===================== -->
@@ -21,62 +28,71 @@
         </div>
 
         <!-- Login Form -->
-        <form class="auth-form" id="login-form">
+        <form class="auth-form" id="login-form" novalidate>
             <h2 class="auth-form-title">Welcome Back</h2>
             <p class="auth-form-subtitle">Login to continue tracking your applications.</p>
 
             <div class="input-group floating">
                 <input type="email" id="login-email" placeholder=" " required>
                 <label for="login-email">Email Address</label>
+                <span class="error-message" id="login-email-error"></span>
             </div>
 
             <div class="input-group floating password-wrapper">
                 <input type="password" id="login-password" placeholder=" " required>
                 <label for="login-password">Password</label>
                 <span class="toggle-password" data-target="login-password">👁</span>
+                <span class="error-message" id="login-password-error"></span>
             </div>
 
             <a href="#" class="forgot-password-link">Forgot Password?</a>
 
             <button type="submit" class="btn btn-primary btn-block">Log In</button>
 
-            <p class="auth-switch-text">Don't have an account? <span class="link-span" id="switch-to-signup">Sign Up</span></p>
+            <p class="auth-switch-text">Don't have an account? <span class="link-span" id="switch-to-signup">Sign
+                    Up</span></p>
         </form>
 
         <!-- Signup Form -->
-        <form class="auth-form hidden" id="signup-form">
+        <form class="auth-form hidden" id="signup-form" novalidate>
             <h2 class="auth-form-title">Create Account</h2>
             <p class="auth-form-subtitle">Sign up to start tracking your job search.</p>
 
             <div class="input-group floating">
                 <input type="text" id="signup-name" placeholder=" " required>
                 <label for="signup-name">Full Name</label>
+                <span class="error-message" id="signup-name-error"></span>
             </div>
 
             <div class="input-group floating">
                 <input type="email" id="signup-email" placeholder=" " required>
                 <label for="signup-email">Email Address</label>
+                <span class="error-message" id="signup-email-error"></span>
             </div>
 
             <div class="input-group floating password-wrapper">
                 <input type="password" id="signup-password" placeholder=" " required>
                 <label for="signup-password">Password</label>
                 <span class="toggle-password" data-target="signup-password">👁</span>
+                <span class="error-message" id="signup-password-error"></span>
             </div>
 
             <div class="input-group floating password-wrapper">
                 <input type="password" id="signup-confirm" placeholder=" " required>
                 <label for="signup-confirm">Confirm Password</label>
                 <span class="toggle-password" data-target="signup-confirm">👁</span>
+                <span class="error-message" id="signup-confirm-error"></span>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Create Account</button>
 
-            <p class="auth-switch-text">Already have an account? <span class="link-span" id="switch-to-login">Login</span></p>
+            <p class="auth-switch-text">Already have an account? <span class="link-span"
+                    id="switch-to-login">Login</span></p>
         </form>
 
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

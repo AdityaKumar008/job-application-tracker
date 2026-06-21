@@ -6,9 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run auth logic if we're on the auth page
     if (document.getElementById('login-form')) {
-        initAuthFormSwitching();
-        initPasswordToggle();
-    }
+    initAuthFormSwitching();
+    initPasswordToggle();
+    initLoginValidation();
+    initSignupValidation();
+}
 
 });
 
@@ -132,13 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run dashboard logic if we're on the dashboard page
     if (document.getElementById('sidebar')) {
-        initLiveDate();
-        initSidebarCollapse();
-        initDashboardViewSwitching();
-        initSearchAndFilter();
-        initCardActions();
-        initMobileDrawer();
-    }
+    initLiveDate();
+    initSidebarCollapse();
+    initDashboardViewSwitching();
+    initSearchAndFilter();
+    initCardActions();
+    initMobileDrawer();
+    initChangePasswordValidation();
+}
 
 });
 
@@ -351,8 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only run form logic if we're on the form page
     if (document.getElementById('application-form')) {
-        initFormMode();
-    }
+    initFormMode();
+    initApplicationFormValidation();
+}
 
 });
 
@@ -387,4 +391,175 @@ function initFormMode() {
         formTitle.textContent = 'Add New Application';
         submitBtn.innerHTML = '<i class="fa-solid fa-circle-plus"></i> Add Application';
     }
+}
+
+
+
+/* ==========================================================================
+   05. FORM VALIDATION (Shared logic for auth, settings, and application forms)
+   ========================================================================== */
+
+/* ---------------- 05.1 SHARED VALIDATION HELPERS ---------------- */
+
+// Shows an error message under a field and marks it as invalid
+function showFieldError(input, message) {
+    const inputGroup = input.closest('.input-group');
+    const errorSpan = document.getElementById(`${input.id}-error`);
+
+    if (inputGroup) inputGroup.classList.add('has-error');
+    if (errorSpan) errorSpan.textContent = message;
+}
+
+// Clears the error message and invalid state for a field
+function clearFieldError(input) {
+    const inputGroup = input.closest('.input-group');
+    const errorSpan = document.getElementById(`${input.id}-error`);
+
+    if (inputGroup) inputGroup.classList.remove('has-error');
+    if (errorSpan) errorSpan.textContent = '';
+}
+
+// Validates a single required field — returns true if valid
+function validateRequiredField(input, fieldLabel) {
+    if (!input.value.trim()) {
+        showFieldError(input, `${fieldLabel} is required.`);
+        return false;
+    }
+
+    if (input.type === 'email' && !input.checkValidity()) {
+        showFieldError(input, 'Please enter a valid email address.');
+        return false;
+    }
+
+    clearFieldError(input);
+    return true;
+}
+
+// Validates that two password fields match — returns true if valid
+function validatePasswordMatch(passwordInput, confirmInput) {
+    if (confirmInput.value !== passwordInput.value) {
+        showFieldError(confirmInput, 'Passwords do not match.');
+        return false;
+    }
+    clearFieldError(confirmInput);
+    return true;
+}
+
+// Clears a field's error as soon as the user starts typing again
+function clearErrorOnInput(input) {
+    input.addEventListener('input', () => clearFieldError(input));
+}
+
+
+/* ---------------- 05.2 LOGIN FORM VALIDATION ---------------- */
+
+function initLoginValidation() {
+    const loginForm = document.getElementById('login-form');
+    if (!loginForm) return;
+
+    const email = document.getElementById('login-email');
+    const password = document.getElementById('login-password');
+
+    [email, password].forEach(clearErrorOnInput);
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const isEmailValid = validateRequiredField(email, 'Email');
+        const isPasswordValid = validateRequiredField(password, 'Password');
+
+        if (isEmailValid && isPasswordValid) {
+            // Validation passed — backend login logic will go here later
+        }
+    });
+}
+
+
+/* ---------------- 05.3 SIGNUP FORM VALIDATION ---------------- */
+
+function initSignupValidation() {
+    const signupForm = document.getElementById('signup-form');
+    if (!signupForm) return;
+
+    const name = document.getElementById('signup-name');
+    const email = document.getElementById('signup-email');
+    const password = document.getElementById('signup-password');
+    const confirm = document.getElementById('signup-confirm');
+
+    [name, email, password, confirm].forEach(clearErrorOnInput);
+
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const isNameValid = validateRequiredField(name, 'Full name');
+        const isEmailValid = validateRequiredField(email, 'Email');
+        const isPasswordValid = validateRequiredField(password, 'Password');
+        const isConfirmValid = validateRequiredField(confirm, 'Confirm password');
+
+        const passwordsMatch = (isPasswordValid && isConfirmValid)
+            ? validatePasswordMatch(password, confirm)
+            : false;
+
+        if (isNameValid && isEmailValid && isPasswordValid && isConfirmValid && passwordsMatch) {
+            // Validation passed — backend signup logic will go here later
+        }
+    });
+}
+
+
+/* ---------------- 05.4 CHANGE PASSWORD FORM VALIDATION (Settings) ---------------- */
+
+function initChangePasswordValidation() {
+    const form = document.getElementById('change-password-form');
+    if (!form) return;
+
+    const current = document.getElementById('current-password');
+    const newPass = document.getElementById('new-password');
+    const confirm = document.getElementById('confirm-new-password');
+
+    [current, newPass, confirm].forEach(clearErrorOnInput);
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const isCurrentValid = validateRequiredField(current, 'Current password');
+        const isNewValid = validateRequiredField(newPass, 'New password');
+        const isConfirmValid = validateRequiredField(confirm, 'Confirm new password');
+
+        const passwordsMatch = (isNewValid && isConfirmValid)
+            ? validatePasswordMatch(newPass, confirm)
+            : false;
+
+        if (isCurrentValid && isNewValid && isConfirmValid && passwordsMatch) {
+            // Validation passed — backend password update logic will go here later
+        }
+    });
+}
+
+
+/* ---------------- 05.5 APPLICATION FORM VALIDATION ---------------- */
+
+function initApplicationFormValidation() {
+    const form = document.getElementById('application-form');
+    if (!form) return;
+
+    const company = document.getElementById('company-name');
+    const role = document.getElementById('job-role');
+    const status = document.getElementById('job-status');
+    const date = document.getElementById('applied-date');
+
+    [company, role, status, date].forEach(clearErrorOnInput);
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const isCompanyValid = validateRequiredField(company, 'Company name');
+        const isRoleValid = validateRequiredField(role, 'Job role');
+        const isStatusValid = validateRequiredField(status, 'Application status');
+        const isDateValid = validateRequiredField(date, 'Date applied');
+
+        if (isCompanyValid && isRoleValid && isStatusValid && isDateValid) {
+            // Validation passed — backend save logic will go here later
+        }
+    });
 }

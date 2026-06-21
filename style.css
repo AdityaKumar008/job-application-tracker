@@ -1519,3 +1519,67 @@ ul {
         gap: 22px;
     }
 }
+
+
+
+/* ==========================================================================
+   16. FORM VALIDATION STYLES (Shared across auth, settings, application form)
+   ========================================================================== */
+
+/* Error message text below each field */
+.error-message {
+    display: block;
+    color: #ea5455;
+    font-size: 0.78rem;
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+/* Red border on the input/select/textarea when its field has an error */
+.input-group.has-error input,
+.input-group.has-error select,
+.input-group.has-error textarea {
+    border-color: #ea5455 !important;
+}
+
+
+
+
+/* ==========================================================================
+   17. 404 ERROR PAGE STYLES (404.html)
+   ========================================================================== */
+
+.error-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.error-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 420px;
+}
+
+.error-code {
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    line-height: 1;
+}
+
+.error-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.error-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
