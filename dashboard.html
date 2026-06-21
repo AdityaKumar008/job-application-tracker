@@ -4,177 +4,312 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobTracker - Dashboard</title>
+    <script>
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+</script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="dashboard-page">
 
-    <aside class="sidebar">
-        <div class="sidebar-brand">
-            <h2>JobTracker</h2>
+    <!-- ===================== MOBILE TOP BAR (visible only on small screens) ===================== -->
+<div class="mobile-topbar">
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <h2 class="mobile-logo">JobTracker</h2>
+</div>
+
+<!-- ===================== MOBILE BACKDROP (visible only when drawer is open) ===================== -->
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Collapse Toggle + Logo -->
+        <div class="sidebar-top">
+            <button class="collapse-btn" id="collapse-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="sidebar-brand">
+                <h2>JobTracker</h2>
+            </div>
         </div>
+
+        <!-- User Profile Block -->
+        <div class="sidebar-profile">
+            <img src="https://api.dicebear.com/7.x/initials/svg?seed=Candidate" alt="Profile" class="sidebar-avatar">
+            <div class="sidebar-profile-info">
+                <p class="sidebar-username">Candidate</p>
+                <p class="sidebar-useremail">candidate@example.com</p>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
         <nav class="sidebar-menu">
             <ul>
-                <li><a href="#" class="sidebar-link active">📊 <span>Dashboard</span></a></li>
-                <li><a href="form.html" class="sidebar-link">➕ <span>Add Application</span></a></li>
-                <li><a href="#" class="sidebar-link" id="nav-settings">⚙️ <span>Settings</span></a></li>
+                <li>
+                    <a href="#" class="sidebar-link active" id="nav-dashboard">
+                        <i class="fa-solid fa-grip"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="sidebar-link">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        <span>Add Application</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-link" id="nav-settings">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <div class="sidebar-footer">
-            <a href="index.html" class="sidebar-link logout-btn">🚪 <span>Logout</span></a>
+
+        <!-- Logout -->
+        <div class="sidebar-bottom">
+            <a href="index.html" class="sidebar-link logout-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
         </div>
+
     </aside>
 
+    <!-- ===================== MAIN CONTENT ===================== -->
     <main class="dashboard-main">
-        
-        <header class="dashboard-header">
-            <div>
-                <h1>Welcome Back, Candidate</h1>
-                <p class="date-text" id="live-date">Loading current date and time...</p>
-            </div>
-        </header>
 
-        <section class="stats-container">
-            <div class="stat-card">
-                <span class="stat-title">Total Applications</span>
-                <span class="stat-value">25</span>
-            </div>
-            <div class="stat-card status-interview-border">
-                <span class="stat-title">In Interview</span>
-                <span class="stat-value text-interview">5</span>
-            </div>
-            <div class="stat-card status-offered-border">
-                <span class="stat-title">Offers Received</span>
-                <span class="stat-value text-offered">2</span>
-            </div>
-            <div class="stat-card status-rejected-border">
-                <span class="stat-title">Rejected</span>
-                <span class="stat-value text-rejected">8</span>
-            </div>
-        </section>
+        <!-- ===================== DASHBOARD VIEW ===================== -->
+        <div class="view-section" id="dashboard-view">
 
-        <section class="filter-utility-bar">
-            <div class="search-box">
-                <input type="text" placeholder="Search by company or role...">
-            </div>
-            <div class="filter-box">
-                <select id="status-filter">
-                    <option value="all">All Statuses</option>
-                    <option value="applied">Applied</option>
-                    <option value="interview">Interview</option>
-                    <option value="offered">Offered</option>
-                    <option value="rejected">Rejected</option>
-                </select>
-            </div>
-        </section>
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div>
+                    <h1>Welcome Back, Candidate</h1>
+                    <p class="date-text" id="live-date">Loading current date...</p>
+                </div>
+            </header>
 
-        <section class="cards-grid">
-            
-            <div class="job-card">
-                <div class="card-header">
-                    <div>
-                        <h3>Google</h3>
-                        <p class="role-title">Frontend Engineer Intern</p>
+            <!-- Stats Cards -->
+            <section class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon-badge badge-total">
+                        <i class="fa-solid fa-briefcase"></i>
                     </div>
-                    <span class="badge badge-interview">Interview</span>
-                </div>
-                <p class="card-date">Applied on: Jun 10, 2026</p>
-                <p class="card-notes">Technical round scheduled for next Tuesday. Preparing on system design and algorithms.</p>
-                <div class="card-actions">
-                    <a href="#" class="action-edit">Edit</a>
-                    <a href="#" class="action-delete">Delete</a>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="card-header">
-                    <div>
-                        <h3>Stripe</h3>
-                        <p class="role-title">Full Stack Developer</p>
+                    <div class="stat-info">
+                        <span class="stat-value">25</span>
+                        <span class="stat-title">Total Applications</span>
                     </div>
-                    <span class="badge badge-offered">Offered</span>
                 </div>
-                <p class="card-date">Applied on: May 18, 2026</p>
-                <p class="card-notes">Received official letter via portal! Base allocation and equity numbers look solid.</p>
-                <div class="card-actions">
-                    <a href="#" class="action-edit">Edit</a>
-                    <a href="#" class="action-delete">Delete</a>
-                </div>
-            </div>
 
-            <div class="job-card">
-                <div class="card-header">
-                    <div>
-                        <h3>Netflix</h3>
-                        <p class="role-title">UI/UX Engineer</p>
+                <div class="stat-card">
+                    <div class="stat-icon-badge badge-interview">
+                        <i class="fa-solid fa-comments"></i>
                     </div>
-                    <span class="badge badge-applied">Applied</span>
-                </div>
-                <p class="card-date">Applied on: Jun 15, 2026</p>
-                <p class="card-notes">Submitted via referral link. Looking out for HR recruiter screening response.</p>
-                <div class="card-actions">
-                    <a href="#" class="action-edit">Edit</a>
-                    <a href="#" class="action-delete">Delete</a>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="settings-container class-hidden">
-            <h2 class="section-title" style="text-align: left; margin-bottom: 24px;">Workspace Settings</h2>
-            
-            <div class="settings-grid-layout">
-                <div class="settings-card">
-                    <h3>👤 Profile Configuration</h3>
-                    <p class="settings-desc">Update the details used across your analytics welcome boards.</p>
-                    <form class="settings-form">
-                        <div class="input-group">
-                            <label>Display Name</label>
-                            <input type="text" value="Aditya Kumar" placeholder="Enter your full name">
-                        </div>
-                        <div class="input-group">
-                            <label>Professional Title</label>
-                            <input type="text" value="Bioengineering Undergraduate" placeholder="e.g. Software Engineer">
-                        </div>
-                        <button type="button" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem; align-self: flex-start; border: none;">Save Changes</button>
-                    </form>
+                    <div class="stat-info">
+                        <span class="stat-value">5</span>
+                        <span class="stat-title">In Interview</span>
+                    </div>
                 </div>
 
-                <div class="settings-card">
-                    <h3>🎨 Preferences & Appearance</h3>
-                    <p class="settings-desc">Customize how your interface window behaves and displays information.</p>
-                    <div class="settings-row">
+                <div class="stat-card">
+                    <div class="stat-icon-badge badge-offered">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">2</span>
+                        <span class="stat-title">Offers Received</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-badge badge-rejected">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">8</span>
+                        <span class="stat-title">Rejected</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search & Filter Bar -->
+            <section class="filter-utility-bar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search by company or role...">
+                </div>
+                <div class="filter-box">
+                    <i class="fa-solid fa-filter filter-icon"></i>
+                    <select id="status-filter">
+                        <option value="all">All Statuses</option>
+                        <option value="applied">Applied</option>
+                        <option value="interview">Interview</option>
+                        <option value="offered">Offered</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Applications Grid -->
+            <section class="cards-grid" id="cards-grid">
+
+                <div class="job-card" data-id="1" data-status="interview">
+                    <span class="card-status-strip strip-interview"></span>
+                    <div class="card-header">
                         <div>
-                            <h4>Interface Theme</h4>
-                            <p class="settings-subtext">Toggle between high-contrast dark slate or soft light configurations.</p>
+                            <h3>Google</h3>
+                            <p class="role-title">Frontend Engineer Intern</p>
                         </div>
-                        <select class="settings-select" id="theme-selector">
-                            <option value="dark">Dark Slate (Active)</option>
-                            <option value="light">Soft Light Mode</option>
-                        </select>
+                        <span class="badge badge-interview">Interview</span>
                     </div>
-                    <div class="settings-row" style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 16px;">
-                        <div>
-                            <h4>Localized Currency</h4>
-                            <p class="settings-subtext">Set your tracking metrics evaluation parameters.</p>
-                        </div>
-                        <select class="settings-select">
-                            <option value="inr">INR (₹)</option>
-                            <option value="usd">USD ($)</option>
-                            <option value="eur">EUR (€)</option>
-                        </select>
+                    <p class="card-date"><i class="fa-regular fa-calendar"></i> Applied on: Jun 10, 2026</p>
+                    <p class="card-notes">Technical round scheduled for next Tuesday. Preparing system design and algorithms.</p>
+                    <div class="card-actions">
+                        <a href="#" class="action-edit"><i class="fa-solid fa-pen"></i> Edit</a>
+                        <a href="#" class="action-delete"><i class="fa-solid fa-trash"></i> Delete</a>
                     </div>
                 </div>
 
-                <div class="settings-card panel-danger-zone">
-                    <h3>🛡️ Data Utility & Control</h3>
-                    <p class="settings-desc">Manage your account information, backup logs, or wipe clean structural sessions.</p>
-                    <div class="settings-action-buttons" style="display: flex; gap: 12px; margin-top: 8px;">
-                        <button type="button" class="btn btn-secondary" style="padding: 10px 16px; font-size: 0.9rem;">📥 Export to CSV</button>
-                        <button type="button" class="btn" style="padding: 10px 16px; font-size: 0.9rem; background-color: rgba(234, 84, 85, 0.1); color: #ea5455; border: 1px solid rgba(234, 84, 85, 0.3); cursor: pointer; border-radius: 6px; font-weight: 600;">⚠️ Delete All Data</button>
+                <div class="job-card" data-id="2" data-status="offered">
+                    <span class="card-status-strip strip-offered"></span>
+                    <div class="card-header">
+                        <div>
+                            <h3>Stripe</h3>
+                            <p class="role-title">Full Stack Developer</p>
+                        </div>
+                        <span class="badge badge-offered">Offered</span>
+                    </div>
+                    <p class="card-date"><i class="fa-regular fa-calendar"></i> Applied on: May 18, 2026</p>
+                    <p class="card-notes">Received official offer letter via portal. Compensation details look solid.</p>
+                    <div class="card-actions">
+                        <a href="#" class="action-edit"><i class="fa-solid fa-pen"></i> Edit</a>
+                        <a href="#" class="action-delete"><i class="fa-solid fa-trash"></i> Delete</a>
                     </div>
                 </div>
-            </div>
-        </section>
+
+                <div class="job-card" data-id="3" data-status="applied">
+                    <span class="card-status-strip strip-applied"></span>
+                    <div class="card-header">
+                        <div>
+                            <h3>Netflix</h3>
+                            <p class="role-title">UI/UX Engineer</p>
+                        </div>
+                        <span class="badge badge-applied">Applied</span>
+                    </div>
+                    <p class="card-date"><i class="fa-regular fa-calendar"></i> Applied on: Jun 15, 2026</p>
+                    <p class="card-notes">Submitted via referral link. Awaiting recruiter screening response.</p>
+                    <div class="card-actions">
+                        <a href="#" class="action-edit"><i class="fa-solid fa-pen"></i> Edit</a>
+                        <a href="#" class="action-delete"><i class="fa-solid fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Empty State (hidden unless no cards match) -->
+            <section class="empty-state hidden" id="empty-state">
+                <i class="fa-solid fa-inbox empty-state-icon"></i>
+                <h3>No applications found</h3>
+                <p>Try adjusting your search or filter, or add a new application to get started.</p>
+                <a href="form.html" class="btn btn-primary">Add Application</a>
+            </section>
+
+        </div>
+
+        <!-- ===================== SETTINGS VIEW ===================== -->
+        <div class="view-section hidden" id="settings-view">
+
+            <header class="dashboard-header">
+                <div>
+                    <h1>Settings</h1>
+                    <p class="date-text">Manage your profile and account preferences.</p>
+                </div>
+            </header>
+
+            <!-- Profile Section -->
+            <section class="settings-card">
+                <h3><i class="fa-solid fa-user"></i> Profile Information</h3>
+
+                <div class="profile-pic-row">
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed=Candidate" alt="Profile" class="settings-avatar">
+                    <button type="button" class="btn btn-secondary btn-sm">
+                        <i class="fa-solid fa-camera"></i> Change Photo
+                    </button>
+                </div>
+
+                <form class="settings-form">
+                    <div class="input-group">
+                        <label for="settings-name">Full Name</label>
+                        <input type="text" id="settings-name" value="Candidate">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="settings-email">Email Address</label>
+                        <input type="email" id="settings-email" value="candidate@example.com" readonly>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="settings-role">Target Role</label>
+                        <input type="text" id="settings-role" placeholder="e.g. Software Engineer">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm-block">Save Changes</button>
+                </form>
+            </section>
+
+            <!-- Change Password Section -->
+            <section class="settings-card">
+                <h3><i class="fa-solid fa-lock"></i> Change Password</h3>
+
+                <form class="settings-form">
+                    <div class="input-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password">
+                    </div>
+                    <div class="input-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password">
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-new-password">Confirm New Password</label>
+                        <input type="password" id="confirm-new-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm-block">Update Password</button>
+                </form>
+            </section>
+
+            <!-- Appearance Section -->
+            <section class="settings-card">
+                <h3><i class="fa-solid fa-palette"></i> Appearance</h3>
+
+                <div class="settings-row">
+                    <div>
+                        <h4>Theme</h4>
+                        <p class="settings-subtext">Switch between Light and Dark mode.</p>
+                    </div>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="theme-slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Danger Zone -->
+            <section class="settings-card panel-danger-zone">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
+                <p class="settings-desc">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                <button type="button" class="btn btn-danger">
+                    <i class="fa-solid fa-trash"></i> Delete Account
+                </button>
+            </section>
+
+        </div>
 
     </main>
 

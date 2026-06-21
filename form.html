@@ -4,62 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JobTracker - Add Application</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="form-page">
 
-    <div class="form-container">
-        <div class="form-header">
-            <h2>Track New Application</h2>
-            <p>Enter the details of the job or internship position below.</p>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="dashboard-page">
+
+    <!-- ===================== MOBILE TOP BAR (visible only on small screens) ===================== -->
+<div class="mobile-topbar">
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <h2 class="mobile-logo">JobTracker</h2>
+</div>
+
+<!-- ===================== MOBILE BACKDROP (visible only when drawer is open) ===================== -->
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+
+        <!-- Collapse Toggle + Logo -->
+        <div class="sidebar-top">
+            <button class="collapse-btn" id="collapse-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="sidebar-brand">
+                <h2>JobTracker</h2>
+            </div>
         </div>
 
-        <form class="app-form" action="dashboard.html">
-            
-            <div class="form-row">
-                <div class="input-group">
-                    <label for="company-name">Company Name</label>
-                    <input type="text" id="company-name" placeholder="e.g. Google, Stripe" required>
+        <!-- User Profile Block -->
+        <div class="sidebar-profile">
+            <img src="https://api.dicebear.com/7.x/initials/svg?seed=Candidate" alt="Profile" class="sidebar-avatar">
+            <div class="sidebar-profile-info">
+                <p class="sidebar-username">Candidate</p>
+                <p class="sidebar-useremail">candidate@example.com</p>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="dashboard.html" class="sidebar-link" id="nav-dashboard">
+                        <i class="fa-solid fa-grip"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="sidebar-link active" id="nav-add">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        <span>Add Application</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard.html#settings" class="sidebar-link" id="nav-settings">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Logout -->
+        <div class="sidebar-bottom">
+            <a href="index.html" class="sidebar-link logout-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="dashboard-main">
+
+        <!-- ===================== APPLICATION FORM ===================== -->
+        <div class="form-card">
+
+            <!-- Header -->
+            <div class="form-header">
+                <h2 id="form-title">Add New Application</h2>
+                <p>Enter the details of the job or internship position below.</p>
+            </div>
+
+            <form class="app-form" id="application-form">
+
+                <!-- Row: Company Name + Role -->
+                <div class="form-row">
+                    <div class="input-group floating">
+                        <input type="text" id="company-name" placeholder=" " required>
+                        <label for="company-name">Company Name</label>
+                    </div>
+                    <div class="input-group floating">
+                        <input type="text" id="job-role" placeholder=" " required>
+                        <label for="job-role">Job Title / Role</label>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="job-role">Job Title / Role</label>
-                    <input type="text" id="job-role" placeholder="e.g. Frontend Engineer" required>
+
+                <!-- Row: Status + Date Applied -->
+                <div class="form-row">
+                    <div class="input-group floating">
+                        <select id="job-status" class="form-select" required>
+                            <option value="" disabled selected hidden></option>
+                            <option value="applied">Applied</option>
+                            <option value="interview">In Interview</option>
+                            <option value="offered">Offer Received</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <label for="job-status">Application Status</label>
+                    </div>
+                    <div class="input-group floating">
+                        <input type="date" id="applied-date" placeholder=" " required>
+                        <label for="applied-date">Date Applied</label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="input-group">
-                    <label for="job-status">Application Status</label>
-                    <select id="job-status" class="form-select">
-                        <option value="applied">Applied</option>
-                        <option value="interview">In Interview</option>
-                        <option value="offered">Offer Received</option>
-                        <option value="rejected">Rejected</option>
-                    </select>
+                <!-- Salary (Optional) -->
+                <div class="input-group floating">
+                    <input type="text" id="job-salary" placeholder=" ">
+                    <label for="job-salary">Salary / Compensation <span class="optional-text">(Optional)</span></label>
                 </div>
-                <div class="input-group">
-                    <label for="applied-date">Date Applied</label>
-                    <input type="date" id="applied-date" required>
+
+                <!-- Notes -->
+                <div class="input-group floating">
+                    <textarea id="job-notes" rows="4" placeholder=" "></textarea>
+                    <label for="job-notes">Notes & Interview Steps</label>
                 </div>
-            </div>
 
-            <div class="input-group">
-                <label for="job-salary">Salary / Compensation <span class="optional-text">(Optional)</span></label>
-                <input type="text" id="job-salary" placeholder="e.g. ₹50,000/mo or $120,000/yr">
-            </div>
+                <!-- Actions -->
+                <div class="form-actions">
+                    <a href="dashboard.html" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="form-submit-btn">
+                        <i class="fa-solid fa-circle-plus"></i> Add Application
+                    </button>
+                </div>
 
-            <div class="input-group">
-                <label for="job-notes">Notes & Interview Steps</label>
-                <textarea id="job-notes" rows="4" placeholder="Add custom reminders, submission details, or interviewer names..."></textarea>
-            </div>
+            </form>
+        </div>
 
-            <div class="form-actions">
-                <a href="dashboard.html" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary">Save Application</button>
-            </div>
+    </main>
 
-        </form>
-    </div>
-
+    <script src="script.js"></script>
 </body>
 </html>
