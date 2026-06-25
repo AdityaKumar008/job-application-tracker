@@ -1,6 +1,7 @@
 # JobTracker
 
 A full-stack web application to track job and internship applications in one place — monitor status, manage notes, and stay organized throughout your job search.
+
 🌐 **[View Live Demo](https://adityakumar008.github.io/job-application-tracker/)**
 
 > **Status:** Frontend complete. Backend (Node.js, Express.js, MongoDB, JWT) is planned and in progress.
